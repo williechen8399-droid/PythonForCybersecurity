@@ -12,6 +12,7 @@ number2 = float(input('Second number = '))
 if operation == "+":
     print(f"{number1} + {number2} =", number1 + number2)
 if operation =='-':
+    
     print(f"{number1} - {number2} =", number1 - number2)
 if operation =="*":
     print(f"{number1} * {number2} =", number1 * number2)
