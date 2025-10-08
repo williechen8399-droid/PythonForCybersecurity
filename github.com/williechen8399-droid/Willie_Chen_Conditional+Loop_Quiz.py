@@ -7,7 +7,8 @@ userInput = userInput.lower()
 
 # Condition statement
 if userInput == "yes":
-    print("That's great!")
+    for i in range(10):
+        print("That's great!")
 elif userInput == "no":
     print("Don't worry, It will get better!")
 else: 
