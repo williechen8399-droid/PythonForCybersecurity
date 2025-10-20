@@ -1,3 +1,9 @@
+# Create function
+def sendMessage():
+    for i in range(10):
+        print("That is awsome!")
+
+
 # Get user inpuy
 
 userInput= input("Was today a gooday? (yes/no): ")
@@ -7,8 +13,7 @@ userInput = userInput.lower()
 
 # Condition statement
 if userInput == "yes":
-    for i in range(10):
-        print("That's great!")
+    sendMessage()
 elif userInput == "no":
     print("Don't worry, It will get better!")
 else: 
