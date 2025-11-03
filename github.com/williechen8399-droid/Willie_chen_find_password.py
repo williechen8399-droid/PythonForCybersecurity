@@ -7,35 +7,28 @@ WORDLIST = "top1000.txt"
 
 # Part 1: Load the user and find hashes
 users = {}
-with open("shadow") as f:
-    for line in f:
-        parts = line.split(":")
-        if len(parts) > 1 and parts[1].strip() not in -("", "!", "*"):
-            name = parts[0]
-            fullHash = parts[1].strip()
-            users[name] = fullHash
+for line in open(SHADOW):
+    p = line.split(":")
+    if len(p) > 1 and p[1] and p[1] not in ("*", "!", "!!"):
+        users[p[0]] = p[1].strip()
 
-
-# Part 2: We need to get salt from hash
-def getSalt(h):
+def salt(h):
     if h.startswith("$"):
-        spot = h.find("$", 3)
-        if spot != -1:
-            return h[:spot+1]
-    return h[:2]  
+        i = h.find("$", 3)
+        return (h[:i+1] if i != -1 else h)
+    return h[:2]
 
-salts = {name: getSalt(h) for name, h in users.items()}     
-
-
-#Part 3: test out the passwords
-for guess in open("top-100.txt"):   
-    guess = guess.strip()
+# Part 2: Try to find the password
+found = {}
+for guess in (g.strip() for g in open(WORDLIST)):
     if not guess:
         continue
-    for name, fullHash in list(users.items()):
-        test = crypt.crypt(guess, salts[name])
-        if test == fullHash:
-            print("FOUND:", name, "=", guess)
-            users.pop(name)
+    for u, h in list(users.items()):
+        if crypt.crypt(guess, salt(h)) == h:
+            print("FOUND:", u, "->", guess)
+            found[u] = guess
+            users.pop(u)
     if not users:
         break
+
+print("Total cracked:", len(found))
