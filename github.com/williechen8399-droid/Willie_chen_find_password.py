@@ -2,12 +2,15 @@
 
 import crypt
 
+SHADOW = "shadow.txt"   
+WORDLIST = "top1000.txt"
+
 # Part 1: Load the user and find hashes
 users = {}
 with open("shadow") as f:
     for line in f:
         parts = line.split(":")
-        if len(parts) > 1 and parts[1].strip() not in ("", "!", "*"):
+        if len(parts) > 1 and parts[1].strip() not in -("", "!", "*"):
             name = parts[0]
             fullHash = parts[1].strip()
             users[name] = fullHash
